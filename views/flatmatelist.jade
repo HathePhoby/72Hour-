@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  
+  h1 Flatmate List 
+
+  
+        each user, i in flatmatelist
+           ul 
+           li 
+            h2=user.name
+            p=user.gener
+            p=user.gender
+            p=user.ocupation 
+            p=user.height
+            br
+            button(onclick='#{()}') Delete
+            br
+            br
+            button(onclick='#{()}') Update
+            br
+            br
+            button(onclick='#{()}') ADD new flatmate

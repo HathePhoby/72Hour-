@@ -3,8 +3,3 @@ extends layout
 block content
   h1= title
   p Hello world #{title}
-
-ul
-        each flat, i in 72HourChallange
-            li
-                a(href="mailto:#{flat.city}")= flat.city

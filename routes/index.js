@@ -19,21 +19,38 @@ router.get('/', function(req, res) {
 });
 
 /* get list of flats */
-  router.get('/userlist', function(req, res){
+  router.get('/flatlist', function(req, res){
   	var db = req.db;
     var collection = db.get('usercollection');
     collection.find({},{},function(e,docs){
-        res.render('userlist', {
-            "userlist" : docs
+        res.render('flatlist', {
+            "flatlist" : docs
         });
     });
+
+
   });
 
+
+  router.get('/flatmatelist', function(req, res){
+  		var db = req.db;
+  		var fcollection = db.get('flatmatecollection');
+  		fcollection.find({},{},function(e,docs){
+  			res.render('flatmatelist', {
+  				"flatmatelist" : docs
+  			});
+  		});
+  });
+
+
+
 router.get('/newflat', function(req, res) {
-    res.render('newflat', { title: 'Add New Flat' });
+    res.render('newflat', { 
+    	title: 'Add New Flat' 
+    });
 });
 
-/* POST to Add User Service */
+/* POST to Add Flat Service */
 router.post('/addFlat', function(req, res) {
 
     // Set our internal DB variable
@@ -65,7 +82,7 @@ router.post('/addFlat', function(req, res) {
         }
         else {
             // And forward to success page
-            res.redirect("userlist");
+            res.redirect("flatlist");
         }
     });
 });

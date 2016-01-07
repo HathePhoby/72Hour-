@@ -1,0 +1,23 @@
+extends layout
+
+block content
+        each user, i in flatlist
+            
+                h3=user["Flat name"] 
+                p=user.city
+                p=user.address 
+                p=user.floor 
+                p=user["number of rooms"] 
+                p=user["post code"]
+                br
+                button(onclick='#{()}') Delete
+                br
+                br
+                button(onclick='#{()}') Update
+                br
+                br
+                button(onclick='#{()}') ADD new flat
+                button(onclick="move()") newflat
+script.
+function move(){
+window.location.href = '/newflat'}

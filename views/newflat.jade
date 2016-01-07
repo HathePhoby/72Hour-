@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    h1= title
+    form#formAddUser(name="addFlat",method="post",action="/addFlat")
+        input#inputUserName(type="text", placeholder="flat name", name="flatFlatName")
+        br
+        input#inputUserEmail(type="text", placeholder="flat city", name="flatCity")
+        br
+        input#inputUserAddr(type="text", placeholder="address", name="flatAddress")
+        br
+        input#inputUserFloor(type="text", placeholder="floor", name="flatFloor")
+        br
+        input#inputUserRooms(type="text", placeholder="number of rooms", name="flatNumberOfRooms")
+        br
+        input#inputUserPostCode(type="text", placeholder="post code", name="flatPostCode")
+        br
+        button#btnSubmit(type="submit") submit

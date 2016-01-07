@@ -2,5 +2,12 @@ extends layout
 
 block content
         each user, i in userlist
-            li
-                a(href="mailto:#{user.city}")= user.city
+            
+                h3=user["Flat name"] 
+                p=user.city
+                p=user.address 
+                p=user.floor 
+                p=user["number of rooms"] 
+                p=user["post code"]
+                br
+                br

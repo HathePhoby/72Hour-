@@ -4,17 +4,19 @@ block content
   
 
         each user, i in flatlist
-                h1 Name:
-                h3=user["Flat name"] 
-                p City:
+                br
+                br
+                h1 Flat Name:     
+                p=user["Flat name"]       
+                h4 City:
                 p=user.city
-                p address:
+                h4 address:
                 p=user.address 
-                p Floor:
+                h4 Floor:
                 p=user.floor 
-                p number of rooms
+                h4 number of rooms:
                 p=user["number of rooms"] 
-                p post code
+                h4 post code:
                 p=user["post code"]
                 button(onclick="addflat()") ADD new flat
                 p
@@ -24,7 +26,15 @@ block content
                 br
                 a(href='/addFlatMateToFlat/#{user._id}') ADD new flat flatmate
                 br
+                h1 Flatmate Name:
+                h2=user.flatmates
 
+                p Gender:
+                h2=user.flatmates
+                p Ocuption:
+                h2=user.flatmates
+                p Height:
+                h2=user.flatmates
 
               script.
               function addflatmate(){

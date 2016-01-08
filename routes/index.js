@@ -161,11 +161,12 @@ router.post('/addFlatMateToFlat', function(req, res) {
     var height = req.body.flatMateHeight;
 
 	var flatToUpdate = req.body._id;
+
     // Set our collection
     var collection = db.get('usercollection');
 
     // Submit to the DB
-    collection.insert({
+    collection.insert(  {
         "name" : name,
         "gender" : gender,
         "ocupation" : ocupation,
@@ -194,7 +195,7 @@ var db = req.db;
 });
 
 /* POST to Add Flat Service */
-router.put('/editFlat', function(req, res) {
+router.post('/editFlat', function(req, res) {
 
     // Set our internal DB variable
     var db = req.db;
@@ -211,7 +212,7 @@ router.put('/editFlat', function(req, res) {
     var collection = db.get('usercollection');
 
     // Submit to the DB
-    collection.update({
+    collection.update({ "_id": flatToUpdate} ,{
         "Flat name" : name,
         "city" : city,
         "address" : address,

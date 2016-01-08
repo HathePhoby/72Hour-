@@ -7,26 +7,32 @@ router.get('/', function(req, res) {
 
 });
 /* get list of flats */
-  router.get('/flatlist', function(req, res){
-  	var db = req.db;
-    var collection = db.get('usercollection');
-    collection.find({},{},function(e,docs){
-        res.render('flatlist', {
-            "flatlist" : docs
-        });
+router.get('/flatlist', function(req, res){
+	var db = req.db;
+var collection = db.get('usercollection');
+collection.find({},{},function(e,docs){
+    res.render('flatlist', {
+        "flatlist" : docs
     });
-  });
+});
+});
 
   /* get list of flat mates */
-  router.get('/flatmatelist', function(req, res){
-  		var db = req.db;
-  		var fcollection = db.get('flatmatecollection');
-  		fcollection.find({},{},function(e,docs){
-  			res.render('flatmatelist', {
-  				"flatmatelist" : docs
-  			});
-  		});
-  });
+router.get('/flatmatelist', function(req, res){
+		var db = req.db;
+		var fcollection = db.get('flatmatecollection');
+		fcollection.find({},{},function(e,docs){
+			res.render('flatmatelist', {
+				"flatmatelist" : docs
+			});
+		});
+});
+
+router.get('/newflatmate', function(req, res){
+	res.render('newflatmate', {
+		title: 'Add a new flatmate'
+	});
+});
 /* POST to Add Flat MATE Service */
 router.post('/addFlatMate', function(req, res) {
     // Set our internal DB variable
@@ -66,24 +72,18 @@ var db = req.db;
   			});
   		});
 });
-/* POST to delete Flat MATE Service */
+/* POST to delete Flat MATE Service by ID */
 router.post('/deleteFlatMateTTT', function(req, res) {
     // Set our internal DB variable
     var db = req.db;
     // Get our form values. These rely on the "name" attributes
     var mateToDelete = req.body._id;
-    var name = req.body.flatMateName;
-    var gender = req.body.flatMateGender;
-    var ocupation = req.body.flatMateOcupation;
-    var height = req.body.flatMateHeight;
+
     // Set our collection
     var collection = db.get('flatmatecollection');
     // Submit to the DB
-    collection.remove({
-    	
-    	
-    	"_id" : mateToDelete
-        
+    collection.remove({  	
+    	"_id" : mateToDelete       
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
@@ -140,73 +140,121 @@ router.post('/addFlat', function(req, res) {
     });
 });
 
-router.get('/editFlat', function(req, res){
+router.get('/addFlatMateToFlat/:id', function(req, res){
 var db = req.db;
-  		var Fcollection = db.get('usercollection');
+  		var fcollection = db.get('usercollection');
+  		fcollection.find({},{},function(e,docs){
+  			res.render('addFlatMateToFlat', {
+  				"addFlatMateToFlat" : docs
+  			});
+  		});
+});
+router.post('/addFlatMateToFlat', function(req, res) {
 
-  		Fcollection.find({},{},function(e,docs){
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our form values. These rely on the "name" attributes
+    var name = req.body.flatMateName;
+    var gender = req.body.flatMateGender;
+    var ocupation = req.body.flatMateOcupation;
+    var height = req.body.flatMateHeight;
+
+	var flatToUpdate = req.body._id;
+    // Set our collection
+    var collection = db.get('usercollection');
+
+    // Submit to the DB
+    collection.insert({
+        "name" : name,
+        "gender" : gender,
+        "ocupation" : ocupation,
+        "height" : height
+    }, function (err, doc) {
+        if (err) {
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        }
+        else {
+            // And forward to success pasge
+            res.redirect("flatlist");
+        }
+    });
+});
+
+
+router.get('/editFlat/:id', function(req, res){
+var db = req.db;
+  		var fcollection = db.get('usercollection');
+  		fcollection.find({},{},function(e,docs){
   			res.render('editFlat', {
   				"editFlat" : docs
   			});
   		});
 });
 
+/* POST to Add Flat Service */
+router.put('/editFlat', function(req, res) {
 
-router.get('/newflatmate', function(req, res){
-	res.render('newflatmate', {
-		title: 'Add a new flatmate'
-	});
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our form values. These rely on the "name" attributes
+    var name = req.body.flatFlatName;
+    var city = req.body.flatCity;
+    var address = req.body.flatAddress;
+    var floor = req.body.flatFloor;
+    var numberOfRooms = req.body.flatNumberOfRooms;
+    var postCode = req.body.flatPostCode;
+	var flatToUpdate = req.body._id;
+    // Set our collection
+    var collection = db.get('usercollection');
+
+    // Submit to the DB
+    collection.update({
+        "Flat name" : name,
+        "city" : city,
+        "address" : address,
+        "floor" : floor,
+        "number of rooms" : numberOfRooms,
+        "post code" : postCode
+    }, function (err, doc) {
+        if (err) {
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        }
+        else {
+            // And forward to success pasge
+            res.redirect("flatlist");
+        }
+    });
 });
 
-
-router.delete('/deleteFlatMate/:id', function(req, res){
-	var db = req.db;
-	var collection = db.get('flatmatecollection');
-	var flatToDelete = req.params.id;
-	collection.delete({
-		"_id" : flatToDelete
-	}, function(err) {
-        res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
-	});
+//delete flats
+router.get('/deleteFlat/:id', function(req, res){
+var db = req.db;
+  		var fcollection = db.get('usercollection');
+  		fcollection.find({},{},function(e,docs){
+  			res.render('deleteFlat', {
+  				"deleteFlat" : docs
+  			});
+  		});
 });
-function deleteFlatMate(event) {
 
-    event.preventDefault();
-    // Pop up a confirmation dialog
-    var confirmation = confirm('Are you sure you want to delete this mate?');
-    // Check and make sure the user confirmed
-    if (confirmation === true) {
-        // If they did, do our delete
-        $.ajax({
-            type: 'DELETE',
-            url: '/users/deleteuser/' + $(this).attr('rel')
-        }).done(function( response ) {
-            // Check for a successful (blank) response
-            if (response.msg === '') {
-            }
-            else {
-                alert('Error: ' + response.msg);
-            }
-            // Update the table
-            populateTable();
-        });
-    }
-    else {
-        // If they said no to the confirm, do nothing
-        return false;
-    }
-};
+/* POST to delete Flat MATE Service by ID */
+router.post('/deleteFlat', function(req, res) {
+    // Set our internal DB variable
+    var db = req.db;
+    // Get our form values. These rely on the "name" attributes
+    var flatToDelete = req.body._id;
 
-
-
-
- //To Delete a FLAT
-router.delete('/deleteFlat/:id' ,function(req,res){
-	var db = req.db;
-	var collection = db.get('usercollection');
-	var flatToDelete = req.params.id;
-	collection.remove({ '_id' : flatToDelete }, function(err){
-	 if (err) {
+    // Set our collection
+    var collection = db.get('usercollection');
+    // Submit to the DB
+    collection.remove({  	
+    	"_id" : flatToDelete       
+    }, function (err, doc) {
+        if (err) {
             // If it failed, return error
             res.send("There was a problem adding the information to the database.");
         }
@@ -214,7 +262,8 @@ router.delete('/deleteFlat/:id' ,function(req,res){
             // And forward to success page
             res.redirect("flatlist");
         }
-	});
+    });
 });
+
 
 module.exports = router;

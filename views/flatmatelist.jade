@@ -6,16 +6,15 @@ block content
 
   
         each user, i in flatmatelist
-           ul 
-           li 
+            h1 Flatmate Name:
             h2=user.name
-            p=user.gener
-            p=user.gender
-            p=user.ocupation 
-            p=user.height
             
-           
-            a(href='/deleteFlatMate/#{user._id}') Edit mate
+            p Gender:
+            h2=user.gender
+            p Ocuption:
+            h2=user.ocupation
+            p Height:
+            h2=user.height
             br
             a(href='/deleteFlatMate/#{user._id}') Delete mate by ID
             br 

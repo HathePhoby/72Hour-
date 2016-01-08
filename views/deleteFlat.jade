@@ -1,0 +1,7 @@
+extends layout
+
+block content
+	h1 Conform by ID of the flat
+	form#formDeleteFlat(name="deleteFlat",method="post",action="/deleteFlat")
+		input#inputUserName(type="text", placeholder="Id", name="_id")
+		button#btnSubmit(type="submit") submit

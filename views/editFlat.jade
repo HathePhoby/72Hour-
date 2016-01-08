@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    h1 Edit flat HERE
+    form#formEditFlat(name="editFlat",method="post",action="/editFlat")
+        input#inputUserName(type="text", placeholder="name", name="flatFlatName")
+        br
+        input#inputUserEmail(type="text", placeholder="flat city", name="flatCity")
+        br
+        input#inputUserAddr(type="text", placeholder="address", name="flatAddress")
+        br
+        input#inputUserFloor(type="text", placeholder="floor", name="flatFloor")
+        br
+        input#inputUserRooms(type="text", placeholder="number of rooms", name="flatNumberOfRooms")
+        br
+        input#inputUserPostCode(type="text", placeholder="post code", name="flatPostCode")
+        br
+        br
+        button#btnSubmit(type="submit") submit

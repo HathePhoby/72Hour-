@@ -1,28 +1,37 @@
 extends layout
 
 block content
-        each user, i in flatlist
-            
-                h3=user["Flat name"] 
-                p=user.city
-                p=user.address 
-                p=user.floor 
-                p=user["number of rooms"] 
-                p=user["post code"]
-                br
-                p
-                button(onClick="Delete()") Delete FLAT Function
-                th Delete?
-                br
-                br
-                p 
-                button(onClick="EditFlat()") Edit
+  
 
-                br
-                br
-                
+        each user, i in flatlist
+                h1 Name:
+                h3=user["Flat name"] 
+                p City:
+                p=user.city
+                p address:
+                p=user.address 
+                p Floor:
+                p=user.floor 
+                p number of rooms
+                p=user["number of rooms"] 
+                p post code
+                p=user["post code"]
                 button(onclick="addflat()") ADD new flat
+                p
+                a(href='/deleteFlat/#{user._id}') Delete flat by ID
+                p 
+                a(href='/editFlat/#{user._id}') Edit flat              
+                br
+                a(href='/addFlatMateToFlat/#{user._id}') ADD new flat flatmate
+                br
+
+
               script.
+              function addflatmate(){
+              console.log("dsadsa");
+              window.location.href = '/flatmatelist'
+              }
+
                function addflat(){
                console.log('add');
                window.location.href = '/newflat'
@@ -32,6 +41,7 @@ block content
                console.log("delete function");
                window.location.href ='/deleteFlat'
                }
+
                function EditFlat(){
                console.log("delete function");
                window.location.href ='/editFlat'

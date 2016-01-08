@@ -1,0 +1,7 @@
+extends layout
+
+block content
+	h1 Conform by ID of the mate
+	form#formDeleteFlatMate(name="deleteFlatMate",method="post",action="/deleteFlatMateTTT")
+		input#inputUserName(type="text", placeholder="Id", name="_id")
+		button#btnSubmit(type="submit") submit

@@ -57,36 +57,33 @@ router.post('/addFlatMate', function(req, res) {
     });
 });
 
-router.get('/editFlatMate/:id', function(req, res){
+router.get('/deleteFlatMate/:id', function(req, res){
 var db = req.db;
   		var fcollection = db.get('flatmatecollection');
-  		var userToUpdate =req.params.id;
-  		fcollection.find({ '_id': userToUpdate},{},function(e,docs){
-  			res.render('editFlatMate', {
-  				"editFlatMate" : docs
+  		fcollection.find({},{},function(e,docs){
+  			res.render('deleteFlatMate', {
+  				"deleteFlatMate" : docs
   			});
   		});
 });
-/* POST to Add Flat MATE Service */
-router.post('/editFlatMateTTT', function(req, res) {
+/* POST to delete Flat MATE Service */
+router.post('/deleteFlatMateTTT', function(req, res) {
     // Set our internal DB variable
     var db = req.db;
     // Get our form values. These rely on the "name" attributes
+    var mateToDelete = req.body._id;
     var name = req.body.flatMateName;
     var gender = req.body.flatMateGender;
     var ocupation = req.body.flatMateOcupation;
     var height = req.body.flatMateHeight;
-
-    var mateToUpdate = req.params.id;
     // Set our collection
     var collection = db.get('flatmatecollection');
     // Submit to the DB
-    mateToUpdate.Update({
+    collection.remove({
     	
-       "name" : name,
-        "gender" : gender,
-        "ocupation" : ocupation,
-        "height" : height
+    	
+    	"_id" : mateToDelete
+        
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
@@ -167,10 +164,7 @@ router.delete('/deleteFlatMate/:id', function(req, res){
 	var collection = db.get('flatmatecollection');
 	var flatToDelete = req.params.id;
 	collection.delete({
-		"name" : name,
-        "gender" : gender,
-        "ocupation" : ocupation,
-        "height" : height
+		"_id" : flatToDelete
 	}, function(err) {
         res.send((err === null) ? { msg: '' } : { msg:'error: ' + err });
 	});

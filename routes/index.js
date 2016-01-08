@@ -87,4 +87,43 @@ router.post('/addFlat', function(req, res) {
     });
 });
 
+router.get('/newflatmate', function(req, res){
+	res.render('newflatmate', {
+		title: 'Add a new flatmate'
+	});
+});
+/* POST to Add Flat MATE Service */
+router.post('/addFlatMate', function(req, res) {
+
+    // Set our internal DB variable
+    var db = req.db;
+
+    // Get our form values. These rely on the "name" attributes
+    var name = req.body.flatMateName;
+    var gender = req.body.flatMateGender;
+    var ocupation = req.body.flatMateOcupation;
+    var height = req.body.flatMateHeight;
+
+
+    // Set our collection
+    var collection = db.get('flatmatecollection');
+
+    // Submit to the DB
+    collection.insert({
+        "name" : name,
+        "gender" : gender,
+        "ocupation" : ocupation,
+        "height" : height
+    }, function (err, doc) {
+        if (err) {
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        }
+        else {
+            // And forward to success page
+            res.redirect("flatmatelist");
+        }
+    });
+});
+
 module.exports = router;

@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    h1= title
+    form#formAddUser(name="addFlatMate",method="post",action="/addFlatMate")
+        input#inputUserName(type="text", placeholder="flat MATE name", name="flatMateName")
+        br
+        input#inputUserGender(type="text", placeholder="flat MATE gender", name="flatMateGender")
+        br
+        input#inputUserOcupation(type="text", placeholder="flat MATE ocupation", name="flatMateOcupation")
+        br
+        input#inputUserHeight(type="text", placeholder="flat MATE height ", name="flatMateHeight")
+        br
+        br
+        button#btnSubmit(type="submit") submit

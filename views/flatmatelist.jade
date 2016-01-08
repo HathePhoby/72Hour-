@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  
+  script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
   h1 Flatmate List 
 
   
@@ -13,11 +13,30 @@ block content
             p=user.gender
             p=user.ocupation 
             p=user.height
+            
+            
+            a(href='/deleteFlatMate/#{user._id}') Delete
             br
-            button(onclick='#{()}') Delete
-            br
-            br
-            button(onclick='#{()}') Update
-            br
-            br
-            button(onclick='#{()}') ADD new flatmate
+            a(href='/editFlatMate/#{user._id}') Edit
+            br 
+
+
+
+            button(onclick="addFlatmate()") ADD new flatmate
+            
+
+
+              script.
+               function addFlatmate(){
+               console.log('add');
+               window.location.href = '/newflatmate'
+               }
+
+               function edit(){
+               window.location.href  = '/editFlatMate'
+               }
+
+               $("#DELETEBUTTON").click(function(){
+               console.log("DELETEWORKED");
+               			
+               });

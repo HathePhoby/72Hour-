@@ -10,14 +10,29 @@ block content
                 p=user["number of rooms"] 
                 p=user["post code"]
                 br
-                button(onclick='#{()}') Delete
+                p
+                button(onClick="Delete()") Delete FLAT Function
+                th Delete?
                 br
                 br
-                button(onclick='#{()}') Update
+                p 
+                button(onClick="EditFlat()") Edit
+
                 br
                 br
-                button(onclick='#{()}') ADD new flat
-                button(onclick="move()") newflat
-script.
-function move(){
-window.location.href = '/newflat'}
+                
+                button(onclick="addflat()") ADD new flat
+              script.
+               function addflat(){
+               console.log('add');
+               window.location.href = '/newflat'
+               }
+
+               function Delete(){
+               console.log("delete function");
+               window.location.href ='/deleteFlat'
+               }
+               function EditFlat(){
+               console.log("delete function");
+               window.location.href ='/editFlat'
+               }

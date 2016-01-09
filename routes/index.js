@@ -9,11 +9,11 @@ router.get('/', function(req, res) {
 /* get list of flats */
 router.get('/flatlist', function(req, res){
 	var db = req.db;
-var collection = db.get('usercollection');
-collection.find({},{},function(e,docs){
-    res.render('flatlist', {
-        "flatlist" : docs
-    });
+	var collection = db.get('usercollection');
+	collection.find({},{},function(e,docs){
+	    res.render('flatlist', {
+	        "flatlist" : docs
+	    });
 });
 });
 
@@ -33,7 +33,7 @@ router.get('/newflatmate', function(req, res){
 		title: 'Add a new flatmate'
 	});
 });
-/* POST to Add Flat MATE Service */
+/* POST to Add Flat MATE  */
 router.post('/addFlatMate', function(req, res) {
     // Set our internal DB variable
     var db = req.db;
@@ -62,6 +62,8 @@ router.post('/addFlatMate', function(req, res) {
         }
     });
 });
+
+//
 router.get('/deleteFlatMateByName/:id', function(req, res){
 var db = req.db;
   		var fcollection = db.get('flatmatecollection');
@@ -71,6 +73,7 @@ var db = req.db;
   			});
   		});
 });
+//
 router.post('/deleteFlatMateByName', function(req, res) {
     // Set our internal DB variable
     var db = req.db;
@@ -93,7 +96,7 @@ router.post('/deleteFlatMateByName', function(req, res) {
         }
     });
 });
-
+//routing for the deleteflatmate with NAME
 router.get('/deleteFlatMate/:name', function(req, res){
 var db = req.db;
   		var fcollection = db.get('flatmatecollection');
@@ -103,7 +106,7 @@ var db = req.db;
   			});
   		});
 });
-/* POST to delete Flat MATE Service by ID */
+/* POST to delete Flat MATE by his ID from flatmatecollection */
 router.post('/deleteFlatMateTTT', function(req, res) {
     // Set our internal DB variable
     var db = req.db;
@@ -127,14 +130,14 @@ router.post('/deleteFlatMateTTT', function(req, res) {
     });
 });
 
-
+//Routing to Create a new flat
 router.get('/newflat', function(req, res) {
     res.render('newflat', { 
     	title: 'Add New Flat' 
     });
 });
 
-/* POST to Add Flat Service */
+/* Add Flat */
 router.post('/addFlat', function(req, res) {
 
     // Set our internal DB variable
@@ -158,7 +161,7 @@ router.post('/addFlat', function(req, res) {
         "address" : address,
         "floor" : floor,
         "number of rooms" : numberOfRooms,
-        "post code" : postCode, 
+        "post code" : postCode,          //Creates a test flatmate
          flatmates: [{"name":"testName", 
          "gender":"testGender", 
          "ocupation":"testOcupation", 
@@ -175,7 +178,7 @@ router.post('/addFlat', function(req, res) {
         }
     });
 });
-
+//routing to what flat to add with ID
 router.get('/addFlatMateToFlat/:id', function(req, res){
 var db = req.db;
   		var fcollection = db.get('usercollection');
@@ -185,12 +188,14 @@ var db = req.db;
   			});
   		});
 });
+//Adding flatmates to specific flat
 router.post('/addFlatMateToFlat', function(req, res) {
 
     // Set our internal DB variable
     var db = req.db;
 
     // Get our form values. These rely on the "name" attributes
+    var id = req.body._id;
     var name = req.body.flatMateName;
     var gender = req.body.flatMateGender;
     var ocupation = req.body.flatMateOcupation;
@@ -203,10 +208,13 @@ router.post('/addFlatMateToFlat', function(req, res) {
     
     // Submit to the DB
     collection.insert( {"_id" : flatToUpdate}, {
+    	flatmates: [{
+    	"id" : flatToUpdate,
         "name" : name,
         "gender" : gender,
         "ocupation" : ocupation,
         "height" : height
+       }],
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
@@ -219,7 +227,7 @@ router.post('/addFlatMateToFlat', function(req, res) {
     });
 });
 
-
+//Raouting to the editFlats with it ID
 router.get('/editFlat/:id', function(req, res){
 var db = req.db;
   		var fcollection = db.get('usercollection');
@@ -230,7 +238,7 @@ var db = req.db;
   		});
 });
 
-/* POST to Add Flat Service */
+/* Update the Flats by ID */
 router.post('/editFlat', function(req, res) {
 
     // Set our internal DB variable

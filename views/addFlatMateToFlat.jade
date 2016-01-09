@@ -3,6 +3,9 @@ extends layout
 block content
 	h1 Add flatmate to the flat
 	form#formAddUser(name="addFlatMateToFlat",method="post",action="/addFlatMateToFlat")
+		p Flat ID:
+		input#inputUserName(type="text", placeholder="flat MATE name", name="_id")
+		br
 		p Name:
 		input#inputUserName(type="text", placeholder="flat MATE name", name="flatMateName")
 		br

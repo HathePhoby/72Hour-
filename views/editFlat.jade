@@ -3,6 +3,10 @@ extends layout
 block content
     h1 Edit flat HERE
     form#formEditFlat(name="editFlat",method="post",action="/editFlat")
+      p Enter the ID of the flat to EDIT
+        input#inputUserName(type="text", placeholder="id", name="flatId")
+        br
+        p Make Changes to the flat 
         input#inputUserName(type="text", placeholder="name", name="flatFlatName")
         br
         input#inputUserEmail(type="text", placeholder="flat city", name="flatCity")

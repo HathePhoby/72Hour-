@@ -62,8 +62,39 @@ router.post('/addFlatMate', function(req, res) {
         }
     });
 });
+router.get('/deleteFlatMateByName/:id', function(req, res){
+var db = req.db;
+  		var fcollection = db.get('flatmatecollection');
+  		fcollection.find({},{},function(e,docs){
+  			res.render('deleteFlatMateByName', {
+  				"deleteFlatMateByName" : docs
+  			});
+  		});
+});
+router.post('/deleteFlatMateByName', function(req, res) {
+    // Set our internal DB variable
+    var db = req.db;
+    // Get our form values. These rely on the "name" attributes
+    
+    var name = req.body.flatMateName;
+    // Set our collection
+    var collection = db.get('usercollection.flatmates');
+    // Submit to the DB
+    collection.remove({  	
+    	"name" : name       
+    }, function (err, doc) {
+        if (err) {
+            // If it failed, return error
+            res.send("There was a problem adding the information to the database.");
+        }
+        else {
+            // And forward to success page
+            res.redirect("flatlist");
+        }
+    });
+});
 
-router.get('/deleteFlatMate/:id', function(req, res){
+router.get('/deleteFlatMate/:name', function(req, res){
 var db = req.db;
   		var fcollection = db.get('flatmatecollection');
   		fcollection.find({},{},function(e,docs){
@@ -127,7 +158,12 @@ router.post('/addFlat', function(req, res) {
         "address" : address,
         "floor" : floor,
         "number of rooms" : numberOfRooms,
-        "post code" : postCode
+        "post code" : postCode, 
+         flatmates: [{"name":"testName", 
+         "gender":"testGender", 
+         "ocupation":"testOcupation", 
+         "height":"testHeight"
+     }]
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
@@ -164,9 +200,9 @@ router.post('/addFlatMateToFlat', function(req, res) {
 
     // Set our collection
     var collection = db.get('usercollection');
-
+    
     // Submit to the DB
-    collection.insert(  {
+    collection.insert( {"_id" : flatToUpdate}, {
         "name" : name,
         "gender" : gender,
         "ocupation" : ocupation,
@@ -201,18 +237,20 @@ router.post('/editFlat', function(req, res) {
     var db = req.db;
 
     // Get our form values. These rely on the "name" attributes
+    var id = req.body.flatId;
     var name = req.body.flatFlatName;
     var city = req.body.flatCity;
     var address = req.body.flatAddress;
     var floor = req.body.flatFloor;
     var numberOfRooms = req.body.flatNumberOfRooms;
     var postCode = req.body.flatPostCode;
+
 	var flatToUpdate = req.body._id;
     // Set our collection
     var collection = db.get('usercollection');
-
     // Submit to the DB
-    collection.update({ "_id": flatToUpdate} ,{
+    collection.update( {"_id" : id}, {
+    	"_id " : id,
         "Flat name" : name,
         "city" : city,
         "address" : address,

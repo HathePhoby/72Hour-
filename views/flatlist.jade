@@ -21,38 +21,24 @@ block content
                 button(onclick="addflat()") ADD new flat
                 p
                 a(href='/deleteFlat/#{user._id}') Delete flat by ID
-                p 
+                br
                 a(href='/editFlat/#{user._id}') Edit flat              
                 br
                 a(href='/addFlatMateToFlat/#{user._id}') ADD new flat flatmate
                 br
-                h1 Flatmate Name:
-                h2=user.flatmates
 
-                p Gender:
+                h1 Flatmate Name's:
                 h2=user.flatmates
-                p Ocuption:
+                a(href='/deleteFlatMateByName/#{user}') Delete mate by ID
+                p Gender's:
                 h2=user.flatmates
-                p Height:
+                p Ocupation's:
+                h2=user.flatmates
+                p Height's:
                 h2=user.flatmates
 
               script.
-              function addflatmate(){
-              console.log("dsadsa");
-              window.location.href = '/flatmatelist'
-              }
-
                function addflat(){
                console.log('add');
                window.location.href = '/newflat'
-               }
-
-               function Delete(){
-               console.log("delete function");
-               window.location.href ='/deleteFlat'
-               }
-
-               function EditFlat(){
-               console.log("delete function");
-               window.location.href ='/editFlat'
                }
